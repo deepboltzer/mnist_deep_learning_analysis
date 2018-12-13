@@ -1,2 +1,2 @@
-# deep_learning_visual_recognition
-Deep Learning for Visual Recognition
+# mnist_deep_learning_analysis
+Deep Learning MNIST with 3 layer mlps
