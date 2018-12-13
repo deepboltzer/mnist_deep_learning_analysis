@@ -4,6 +4,9 @@ from keras.layers.core import Dense, Dropout, Activation
 from keras import regularizers
 from keras import layers
 from keras import optimizers
+from keras.models import model_from_json
+import numpy as np
+
 
 class mlp(object):
     """A generic MLP class to create 3 layer mlps with different properties. 
@@ -23,6 +26,7 @@ class mlp(object):
         self.regularization = regularization
         self.optimizer = optimizer
         self.history = None
+        self.file = None
 
     def compile_mlp_model(self):
         # add the input layer and the first hidden layer with input shape, activation and dropout
@@ -60,3 +64,33 @@ class mlp(object):
     def train_mlp_model(self,batch_size,epochs,X_test,X_train,Y_test,Y_train):
         # training the model and saving metrics in history
         self.history = self.model.fit(X_train, Y_train,batch_size=batch_size, epochs=epochs,verbose=2,validation_data=(X_test, Y_test))
+    
+    def predict_classes(self,X_test,batch_size):
+        # predict the model and output the classification accuracy on test data set
+        y_hat = self.model.predict_classes(X_test,batch_size)
+        return y_hat
+    
+    def classification_accuracy(self,X_test,y_test,batch_size):
+        # return the classification accuracy of the model
+        y_hat = self.predict_classes(X_test,batch_size)
+        return np.mean(y_hat==y_test)*100
+
+    def save_model(self,name):
+        # serialize model to JSON
+        model_json = self.model.to_json()
+        with open(name+'.json', 'w') as json_file:
+            json_file.write(model_json)
+        # serialize weights to HDF5
+        self.model.save_weights(name+'.h5')
+        print('Saved model to disk')
+        self.file = name
+
+    def load_model(self,name):
+        # load json and create model
+        json_file = open(name+'.json', 'r')
+        loaded_model_json = json_file.read()
+        json_file.close()
+        self.model = model_from_json(loaded_model_json)
+        # load weights into new model
+        self.model.load_weights(name+'.h5')
+        print('Loaded model from disk')
