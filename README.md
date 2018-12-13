@@ -11,17 +11,12 @@ Analysis results:
      falls very slow for this method. 
      
 2. classification accuracy: 
-   Classification accuracy for MLP-I:
-   95.39999999999999
-   Classification accuracy for MLP-II:
-   97.59
-   Classification accuracy for MLP-III:
-   87.74
-   Classification accuracy for MLP-IV:
-   97.25
+   - Classification accuracy for MLP-I:   95.39999999999999
+   - Classification accuracy for MLP-II:  97.59
+   - Classification accuracy for MLP-III: 87.74
+   - Classification accuracy for MLP-IV:  97.25
    
-   For the classification accuracy SGD with nesterov and SGD with nesterov and L2 regularization are close together. 
-   What we see is that nesterov optimization on the weights can be very helpful on mnist dataset.
+   - For the classification accuracy SGD with nesterov and SGD with nesterov and L2 regularization are close together. What we see is that nesterov optimization on the weights can be very helpful on mnist dataset.
    
-   Open Question: What happens if we use more than 20 epochs? 
+   - Open Question: What happens if we use more than 20 epochs? 
     
